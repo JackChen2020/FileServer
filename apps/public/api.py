@@ -14,10 +14,14 @@ class FileAPIView(viewsets.ViewSet):
 
         UPLOAD_FILE_PATH = '/var/nginx_upload/file/'
 
+        endstr = request.data.get("file_name").split(".")[-1]
+
+        print(endstr)
+
         if not os.path.exists(UPLOAD_FILE_PATH):
             os.makedirs(UPLOAD_FILE_PATH)
 
-        new_file_name = request.data.get("file_md5") + '.jpeg'
+        new_file_name = request.data.get("file_md5") + '.{}'.format(endstr)
         new_file_path = ''.join([UPLOAD_FILE_PATH, new_file_name])
 
         print(new_file_path)
